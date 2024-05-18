@@ -30,14 +30,15 @@ export function GraphResults(props: GraphResultProps) {
 
   return (
     <div>
-      <h2>What the tax means for you:</h2>
+      <h2 className="text-lg font-semibold">What the tax means for you:</h2>
       <p>
         Carbon pricing will {getSum() >= 0 ? "earn" : "cost"} you <br />
         <span className="ml-2 text-lg font-semibold">${getSum()}</span>
       </p>
       {getFirstNegativeYearText()}
       <p className="text-xs font-thin">
-        This estimate accounts for both direct and indirect gains/losses
+        These estimates for households account for both fiscal cost (how much
+        you pay/get), and economic costs (loss in employment and investments)
       </p>
     </div>
   );

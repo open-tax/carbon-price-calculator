@@ -5,7 +5,8 @@ export type QuintileData = Record<IncomeQuintile, [number, number]>;
 export type JsonData = {
   province: Province;
   quintiles: QuintileData;
-  netTransfer: Record<IncomeQuintile, number[]>;
+  netEconomicImpact: Record<IncomeQuintile, number[]>;
+  netFiscalImpact: Record<IncomeQuintile, number[]>;
 }[];
 
 export type SimpleFormData = {

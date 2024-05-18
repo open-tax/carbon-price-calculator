@@ -5,7 +5,12 @@ const forceJsonData = (input: unknown): input is JsonData => {
   if (!Array.isArray(input)) {
     return false;
   }
-  const expectedProperties = ["province", "quintiles", "netTransfer"];
+  const expectedProperties = [
+    "province",
+    "quintiles",
+    "netEconomicImpact",
+    "netFiscalImpact",
+  ];
   return input.every((element) => {
     for (const prop of expectedProperties) {
       if (!input.every((element) => Object.hasOwn(element, prop))) {
@@ -46,7 +51,7 @@ export const getTransferData = async (
     .then((res) => res.json())
     .then(forceType(forceJsonData))
     .then((data) => data?.find((element) => element.province.code === provCode))
-    .then((result) => result?.netTransfer[quintile])
+    .then((result) => result?.netEconomicImpact[quintile])
     .catch((err) => {
       console.log("An unexpected error occurred:", err);
       return undefined;
