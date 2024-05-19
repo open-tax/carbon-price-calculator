@@ -21,14 +21,18 @@ export function Calculator() {
   }, [quintile, province, useEconomicImpact]);
 
   return (
-    <div className="w-screen h-screen bg-gray-200 relative">
-      <Box className="absolute top-1/2 left-1/2 z-20 -translate-x-1/2 -translate-y-1/2 flex gap-2 flex-col md:flex-row opacity-75 hover:opacity-100 bg-gray-200 shadow-xl md:w-7/12 w-11/12 p-4 rounded-lg text-gray-900">
+    <div className="w-screen h-screen bg-gray-200 md:relative">
+      {data ? <Graph data={data} /> : <></>}
+      <Box className="border-none md:absolute md:top-1/2 md:left-1/2 z-20 md:-translate-x-1/2 md:-translate-y-1/2 flex gap-2 flex-col md:flex-row md:opacity-75 hover:opacity-100 bg-gray-200 md:shadow-xl md:w-7/12 w-full p-4 rounded-lg text-gray-900">
         <TabGroup>
           <TabList className="flex gap-4">
-            <Tab className="rounded-full py-1 px-3 text-sm/6 font-semibold focus:outline-none data-[selected]:bg-white/20 data-[hover]:bg-white/10 data-[selected]:data-[hover]:bg-white/20 data-[focus]:outline-1 data-[focus]:outline-white">
+            <Tab className="rounded-full py-1 px-3 text-sm/6 font-semibold outline-none data-[selected]:underline data-[selected]:data-[hover]:underline">
               Simple
             </Tab>
-            <Tab className="rounded-full py-1 px-3 text-sm/6 font-semibold focus:outline-none data-[selected]:bg-white/20 data-[hover]:bg-white/10 data-[selected]:data-[hover]:bg-white/20 data-[focus]:outline-1 data-[focus]:outline-white">
+            <Tab
+              disabled
+              className="rounded-full py-1 px-3 text-sm/6 font-semibold outline-none data-[selected]:underline data-[selected]:data-[hover]:underline"
+            >
               Detailed (coming soon)
             </Tab>
           </TabList>
@@ -47,7 +51,6 @@ export function Calculator() {
           </TabPanels>
         </TabGroup>
       </Box>
-      {data ? <Graph data={data} /> : <></>}
     </div>
   );
 }
