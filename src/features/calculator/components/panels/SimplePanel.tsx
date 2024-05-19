@@ -15,15 +15,16 @@ import { GraphResults } from "../Results";
 export type SimplePanelProps = {
   province: string;
   quintile: string;
+  useEconomicImpact: boolean;
   setProvince: (p: string) => void;
   setQuintile: (q: IncomeQuintile) => void;
+  toggleUseEconomicImpact: () => void;
   data: number[];
 };
 
 function SimplePanel(props: SimplePanelProps) {
   const [provinces, setProvinces] = useState<Province[] | undefined>();
   const [quintiles, setQuintiles] = useState<QuintileData | undefined>();
-  const [useEconomic, setUseEconomic] = useState(false);
 
   useEffect(() => {
     getProvinces().then(setProvinces);
@@ -34,7 +35,6 @@ function SimplePanel(props: SimplePanelProps) {
   }, [props.province]);
 
   const handleProvinceChange = (event: any) => {
-    console.log(event.target.value);
     props.setProvince(event.target.value);
   };
 
@@ -104,8 +104,8 @@ function SimplePanel(props: SimplePanelProps) {
             investment
           </Description>
           <Switch
-            checked={useEconomic}
-            onChange={() => setUseEconomic((prev) => !prev)}
+            checked={props.useEconomicImpact}
+            onChange={props.toggleUseEconomicImpact}
             className="group inline-flex h-6 w-11 items-center rounded-full bg-gray-200 transition data-[checked]:bg-blue-600"
           >
             <span className="size-4 translate-x-1 rounded-full bg-white transition group-data-[checked]:translate-x-6" />
@@ -118,7 +118,10 @@ function SimplePanel(props: SimplePanelProps) {
         orientation="horizontal"
         flexItem
       />
-      <GraphResults data={props.data} />
+      <GraphResults
+        data={props.data}
+        useEconomicImpact={props.useEconomicImpact}
+      />
     </TabPanel>
   );
 }

@@ -9,15 +9,16 @@ import SimplePanel from "./panels/SimplePanel";
 export function Calculator() {
   const [province, setProvince] = useState("");
   const [quintile, setQuintile] = useState<IncomeQuintile>("q1");
+  const [useEconomicImpact, setUseEconomicImpact] = useState(false);
   const [data, setData] = useState<number[]>([0]);
 
   useEffect(() => {
-    getTransferData(province, quintile).then((res) => {
+    getTransferData(province, quintile, useEconomicImpact).then((res) => {
       if (res) {
         setData(res);
       }
     });
-  }, [quintile, province]);
+  }, [quintile, province, useEconomicImpact]);
 
   return (
     <div className="w-screen h-screen bg-gray-200 relative">
@@ -37,6 +38,10 @@ export function Calculator() {
               setProvince={setProvince}
               quintile={quintile}
               setQuintile={setQuintile}
+              useEconomicImpact={useEconomicImpact}
+              toggleUseEconomicImpact={() =>
+                setUseEconomicImpact((prev) => !prev)
+              }
               data={data}
             />
           </TabPanels>

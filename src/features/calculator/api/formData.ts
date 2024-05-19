@@ -46,12 +46,17 @@ export const getQuintiles = async (provCode: Province["code"]) =>
 export const getTransferData = async (
   provCode: Province["code"],
   quintile: IncomeQuintile,
+  useEconomicImpact = false,
 ) =>
   fetch("provinces.json")
     .then((res) => res.json())
     .then(forceType(forceJsonData))
     .then((data) => data?.find((element) => element.province.code === provCode))
-    .then((result) => result?.netEconomicImpact[quintile])
+    .then((result) =>
+      useEconomicImpact
+        ? result?.netEconomicImpact[quintile]
+        : result?.netFiscalImpact[quintile],
+    )
     .catch((err) => {
       console.log("An unexpected error occurred:", err);
       return undefined;

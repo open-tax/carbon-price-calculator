@@ -2,6 +2,7 @@ import React, { useCallback } from "react";
 
 export type GraphResultProps = {
   data: number[];
+  useEconomicImpact: boolean;
 };
 
 export function GraphResults(props: GraphResultProps) {
@@ -10,23 +11,37 @@ export function GraphResults(props: GraphResultProps) {
     [props.data],
   );
 
+  const benefitDescription = useCallback(
+    () => (props.useEconomicImpact ? "economic" : "fiscal"),
+    [props.useEconomicImpact],
+  );
+
   const getFirstNegativeYearText = useCallback(() => {
     const index = props.data.findIndex((element) => element < 0);
     if (index < 0) {
       return (
-        <p>Carbon pricing will always be a net economic benefit for you</p>
+        <p>
+          Carbon pricing will always be a net {benefitDescription()} benefit for
+          you
+        </p>
       );
     } else if (index < 1) {
-      return <p>Carbon pricing will never be a net economic benefit for you</p>;
+      return (
+        <p>
+          Carbon pricing will never be a net {benefitDescription()} benefit for
+          you
+        </p>
+      );
     } else {
       return (
         <p>
-          Carbon pricing is a net economic benefit for you until <br />
+          Carbon pricing is a net {benefitDescription()} benefit for you until{" "}
+          <br />
           <span className="ml-2 text-lg font-semibold">May {2023 + index}</span>
         </p>
       );
     }
-  }, [props.data]);
+  }, [props.data, benefitDescription]);
 
   return (
     <div>
