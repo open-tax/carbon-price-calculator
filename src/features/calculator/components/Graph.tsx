@@ -27,6 +27,7 @@ export function Graph(props: GraphProps) {
           {
             data: props.data,
             valueFormatter: currencyFormatter,
+            area: true,
           },
         ]}
         xAxis={[
@@ -37,11 +38,24 @@ export function Graph(props: GraphProps) {
         ]}
         yAxis={[{ valueFormatter: currencyFormatter }]}
         sx={{
-          "& .MuiMarkElement-root": {
-            fill: "#174b80",
+          // "& .MuiMarkElement-root": {
+          //   fill: "#00a200",
+          // },
+          "& .MuiLineElement-root": {
+            stroke: "#00a200",
+          },
+          "& .MuiAreaElement-root": {
+            fill: "url(#areaGradient)",
           },
         }}
-      />
+      >
+        <defs>
+          <linearGradient id="areaGradient" gradientTransform="rotate(90)">
+            <stop stopColor="#004000" offset="100" />
+            <stop stopColor="#00a200" opacity="0.8" offset="0" />
+          </linearGradient>
+        </defs>
+      </LineChart>
     </div>
   );
 }

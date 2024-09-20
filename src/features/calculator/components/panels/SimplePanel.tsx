@@ -140,12 +140,30 @@ function SimplePanel(props: SimplePanelProps) {
             investment
           </Description>
           <Switch
+            disabled
             checked={props.useEconomicImpact}
             onChange={props.toggleUseEconomicImpact}
             className="group inline-flex h-6 w-11 items-center rounded-full bg-gray-200 transition data-[checked]:bg-blue-600"
           >
             <span className="size-4 translate-x-1 rounded-full bg-white transition group-data-[checked]:translate-x-6" />
           </Switch>
+          <Description className="text-xs text-gray-700/50">
+            Disabled until new numbers are released by the
+            <a
+              href="https://www.pbo-dpb.ca/en"
+              className="underline text-blue-600/50"
+            >
+              PBO
+            </a>
+            . A
+            <a
+              className="underline text-blue-600/50"
+              href="https://www.cbc.ca/news/canada/calgary/pbo-parliamentary-budget-office-carbon-tax-error-explained-1.7218520"
+            >
+              mistake was made
+            </a>
+            in calculations and is currently being fixed.
+          </Description>
         </Field>
       </Box>
       <Divider className="md:visible" orientation="vertical" flexItem />
